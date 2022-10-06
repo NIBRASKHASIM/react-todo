@@ -1,24 +1,28 @@
-import logo from './logo.svg';
+import { Fragment, useState } from 'react';
 import './App.css';
+import  AddTodo  from './components/AddTodo';
+import ListTodo from './components/ListTodo';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  const [list,setList] = useState([])
+  const todoHandler = (task) => {
+    setList((prev) => {
+      return [...prev,{todo:task,checked:false}]
+    })
+  }
+  const deleteHandler= (pos) => {
+    const tList=[...list]
+    tList.splice(pos,1)
+    setList(tList)
+    console.log(tList)
+    
+  }
+  return ( 
+    <Fragment>
+
+      <AddTodo addTodo={todoHandler} />
+      <ListTodo addList={list} delList={deleteHandler}  />
+    </Fragment>
   );
 }
 
